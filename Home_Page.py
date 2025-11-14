@@ -26,4 +26,4 @@ Welcome to our Streamlit Web Development Lab03 app! You can navigate between the
 3.
 
 """)
-st.image(webdev3/Images/soccer.jpg)
+st.image("webdev3/Images/soccer.jpg")
