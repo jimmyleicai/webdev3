@@ -3,7 +3,9 @@ import json
 import pandas as pd
 import streamlit as st
 from pprint import pprint
-	
+
+st.title("Premier League Top Scorers")
+
 uri = 'https://api.football-data.org/v4/competitions/PL/scorers'
 headers = { 'X-Auth-Token': '3200441e79214695acea9bfb1e3e310b' }
 
@@ -61,4 +63,5 @@ if selectedPlayer:
         st.write(f"**Nationality:** {playerData['nationality']}")
         st.write(f"**Position:** {playerData['position']}")  
         st.write(f"**Goals:** {playerData['goals']}")  
+
         st.write(f"**Assists:** {playerData['assists']}") 
