@@ -60,16 +60,14 @@ selectedPlayer = st.selectbox(
 
 if selectedPlayer:
     playerData = detailedDF[detailedDF["name"] == selectedPlayer].iloc[0]
-    if playerData["photo"]:
-        st.image(playerData["crest"], width=120)
-    else:
-        st.info("No player photo available.")
+    st.image(playerData["crest"], width=120)
     st.write(f"**Player:** {playerData['name']}")
     st.write(f"**Team:** {playerData['team']}")
     st.write(f"**Nationality:** {playerData['nationality']}")
     st.write(f"**Position:** {playerData['position']}")  
     st.write(f"**Goals:** {playerData['goals']}")  
     st.write(f"**Assists:** {playerData['assists']}") 
+
 
 
 
