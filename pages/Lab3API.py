@@ -46,7 +46,7 @@ chart = st.scatter_chart(
     y_label = "Goals Scored"
 )
 
-st.header("Detailed Player Statistics)
+st.header("Detailed Player Statistics")
 # Player Info
 
 playerNames = list(topScorerDF["name"])
@@ -66,4 +66,5 @@ if selectedPlayer:
         st.write(f"**Goals:** {playerData['goals']}")  
 
         st.write(f"**Assists:** {playerData['assists']}") 
+
 
