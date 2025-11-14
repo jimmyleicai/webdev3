@@ -3,11 +3,11 @@ import json
 import pandas as pd
 import streamlit as st
 from pprint import pprint
-
-#/v4/competitions/{id}/scorers
 	
 uri = 'https://api.football-data.org/v4/competitions/PL/scorers'
 headers = { 'X-Auth-Token': '3200441e79214695acea9bfb1e3e310b' }
+
+#Top Scorer Graph
 
 minimumPlayers = st.slider(
 "Choose the number of top scorers to display.",
@@ -15,22 +15,28 @@ minimumPlayers = st.slider(
     max_value = 25
 )
 
-response = requests.get(uri+f"?limit=25", headers=headers)
+response = requests.get(uri+f"?limit={minimumPlayers}", headers=headers)
 goalScorers = []
-for index in response.json()['scorers']:
-    if len(goalScorers) == minimumPlayers:
-        break
-    else:
-        goalScorers.append(
-            {'name': index['player']['name'],
-             'goals': index['goals']}
-            )
-    
-print (goalScorers)
-
+for scorer in response.json()['scorers']:
+    goalScorers.append({
+        "name": scorer['player']['name'],
+        "goals": scorer['goals']
+    })
 topScorerDF = pd.DataFrame(goalScorers)
 
-st.scatter_chart(
+detailedPlayers = []
+for scorer in response.json()['scorers']:
+    detailedPlayers.append({
+        "name": scorer['player']['name'],
+        "team": scorer['team']['name'],
+        "nationality": scorer['player']['nationality'],
+        "goals": scorer['goals'],
+        "position": scorer['player']['section'],
+        "assists": scorer['assists'] if scorer['assists'] is not None else 0
+    })
+detailedDF = pd.DataFrame(detailedPlayers)
+
+chart = st.scatter_chart(
     topScorerDF,
     x = "name",
     y = "goals",
@@ -38,14 +44,21 @@ st.scatter_chart(
     y_label = "Goals Scored"
 )
 
-sblist = []
-for player in goalScorers:
-    sblist.append(player['name'])
-    
+# Player Info
 
-selection = st.selectbox(
-    "Select a player:",
-    sblist)
+playerNames = list(topScorerDF["name"])
 
+selectedPlayer = st.selectbox(
+    "Select a player to view stats",
+    playerNames,
+    placeholder = None
+)
 
-
+if selectedPlayer:
+        playerData = detailedDF[detailedDF["name"] == selectedPlayer].iloc[0]
+        st.write(f"**Player:** {playerData['name']}")
+        st.write(f"**Team:** {playerData['team']}")
+        st.write(f"**Nationality:** {playerData['nationality']}")
+        st.write(f"**Position:** {playerData['position']}")  
+        st.write(f"**Goals:** {playerData['goals']}")  
+        st.write(f"**Assists:** {playerData['assists']}") 
