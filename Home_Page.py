@@ -13,7 +13,7 @@ st.subheader("Jimmy L, Kris B")
 
 # Introduction
 # TODO: Write a quick description for all of your pages in this lab below, in the form:
-       1. **Golden Boot Tracker **: This tool provides information on the selected amount of top goal scorers in the English Premier League. Users can further select player's they wish to view more detailed stats of.
+        1. **Golden Boot Tracker **: This tool provides information on the selected amount of top goal scorers in the English Premier League. Users can further select player's they wish to view more detailed stats of.
 #       2. **Page Name**: Description
 #       3. **Page Name**: Description
 #       4. **Page Name**: Description
