@@ -34,7 +34,8 @@ for scorer in response.json()['scorers']:
         "nationality": scorer['player']['nationality'],
         "goals": scorer['goals'],
         "position": scorer['player']['section'],
-        "assists": scorer['assists'] if scorer['assists'] is not None else 0
+        "assists": scorer['assists'] if scorer['assists'] is not None else 0,
+        "photo": scorer['player'].get('photo')
     })
 detailedDF = pd.DataFrame(detailedPlayers)
 
@@ -58,13 +59,17 @@ selectedPlayer = st.selectbox(
 )
 
 if selectedPlayer:
-        playerData = detailedDF[detailedDF["name"] == selectedPlayer].iloc[0]
-        st.write(f"**Player:** {playerData['name']}")
-        st.write(f"**Team:** {playerData['team']}")
-        st.write(f"**Nationality:** {playerData['nationality']}")
-        st.write(f"**Position:** {playerData['position']}")  
-        st.write(f"**Goals:** {playerData['goals']}")  
+    if playerData["photo"]:
+        st.image(playerData["photo"], width=150)
+    else:
+        st.info("No player photo available.")
+    playerData = detailedDF[detailedDF["name"] == selectedPlayer].iloc[0]
+    st.write(f"**Player:** {playerData['name']}")
+    st.write(f"**Team:** {playerData['team']}")
+    st.write(f"**Nationality:** {playerData['nationality']}")
+    st.write(f"**Position:** {playerData['position']}")  
+    st.write(f"**Goals:** {playerData['goals']}")  
+    st.write(f"**Assists:** {playerData['assists']}") 
 
-        st.write(f"**Assists:** {playerData['assists']}") 
 
 
