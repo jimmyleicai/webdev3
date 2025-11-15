@@ -22,8 +22,8 @@ st.write("""
 Welcome to our Streamlit Web Development Lab03 app! You can navigate between the pages using the sidebar to the left. The following pages are:
 
 1. **Golden Boot Tracker**: This tool provides information on the selected amount of top goal scorers in the English Premier League. Users can further select players they wish to view more detailed stats of.
-2. **
-3.
+2. **TBD**
+3. **TBD**
 
 """)
 st.image("Images/soccer.jpg")
