@@ -10,10 +10,13 @@ uri = 'https://api.football-data.org/v4/competitions/PL/scorers'
 headers = { 'X-Auth-Token': '3200441e79214695acea9bfb1e3e310b' }
 
 def get_flag(nationality):
-    flagsURL = f'https://restcountries.com/v3.1/name/{nationality}'
-    response = requests.get(flagsURL)
-    dataFLAGS = response.json()[0]
-    return dataFLAGS['flags']['png']
+    try: 
+        flagsURL = f'https://restcountries.com/v3.1/name/{nationality}'
+        response = requests.get(flagsURL)
+        dataFLAGS = response.json()[0]
+        return dataFLAGS['flags']['png']
+    except KeyError:
+        return "Sorry. This footballer's country flag was not found in RESTCountriesAPI :("
 
 
 #Top Scorer Graph
@@ -79,4 +82,6 @@ if selectedPlayer:
     st.write(f"**Position:** {playerData['position']}")  
     st.write(f"**Goals:** {playerData['goals']}")  
     st.write(f"**Assists:** {playerData['assists']}") 
+
+
 
