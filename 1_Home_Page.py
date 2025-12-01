@@ -11,7 +11,7 @@ st.subheader("Team 68, Web Development - Section C")
 st.subheader("Jimmy L, Kris B")
 
 st.subheader("")
-st.image("Images/messi.jpg")
+st.image("Images/soccer.jpg")
 
 # Introduction
 # TODO: Write a quick description for all of your pages in this lab below, in the form:
