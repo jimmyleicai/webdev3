@@ -6,7 +6,7 @@ import time
 def url_info(): 
     url = "https://api.football-data.org/v4/competitions/PL/scorers"
     headers = { 'X-Auth-Token': '3200441e79214695acea9bfb1e3e310b' }
-    response = requests.get(url+"?limit=25", headers=headers)
+    response = requests.get(url+"?limit=50", headers=headers)
     goalScorers = []
     for scorer in response.json()['scorers']:
         goalScorers.append({
@@ -18,7 +18,7 @@ def url_info():
             "assists": scorer['assists'] if scorer['assists'] is not None else 0,
             "crest": scorer['team']['crest']    
         })
-    context_str = "Premier League Top 25 goalscorers data: "
+    context_str = "Premier League Top 50 goalscorers data: "
     for player in goalScorers:
         context_str += f"Player: {player['name']}, Club: {player['team']}, Nationality: {player['nationality']}, Goals: {player['goals']}, Position: {player['position']}, Assists: {player['assists']}. "
     return context_str
@@ -69,7 +69,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 
-chatPrompt = st.chat_input("Ask Gemini something about the 25 top scorers of the Premier League")
+chatPrompt = st.chat_input("Ask Gemini something about the top 50 goalscorers of the Premier League")
 if chatPrompt:
     st.session_state.messages.append({"role": "user", "content": chatPrompt})
     with st.chat_message("user"):
@@ -99,5 +99,6 @@ if chatPrompt:
         error_message = f"The following error ocurred: {e}. We apologise for the inconvenience :("
         st.error(error_message)
         st.session_state.messages.append({"role": "assistant", "content": error_message})
+
 
     st.rerun()
